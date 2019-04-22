@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
@@ -41,5 +42,28 @@ public class MapExamplesTest {
         assertThat(map.values(), not(hasItem(datesList.get(11))));
         assertThat(map.values(), not(hasItem(datesList.get(0))));
         assertThat(map.values(), not(hasItem(datesList.get(1))));
+    }
+
+    @Test
+    public void removeIfFrequencyMoreThanTwo() {
+        HashMap<String, String> map = new HashMap<>();
+        for (int i = 0; i < 5; i++) {
+            map.put("key: " + i, "value: " + (i % 2));
+        }
+
+        MapExamples.removeElementForFrequencyMoreThan(map, 2);
+        assertThat(map.values(), not(hasItem("value: 0")));
+        assertThat(map.values(), hasItem("value: 1"));
+    }
+
+    @Test
+    public void mapIsEmptyAfterRemovingDuplicates() {
+        HashMap<String, String> map = new HashMap<>();
+        for (int i = 0; i < 6; i++) {
+            map.put("key: " + i, "value: " + (i % 2));
+        }
+
+        MapExamples.removeElementForFrequencyMoreThan(map, 2);
+        assertThat(map.size(), is(0));
     }
 }
