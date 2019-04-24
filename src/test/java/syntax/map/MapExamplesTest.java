@@ -4,15 +4,12 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static syntax.map.MapExamples.initializeMapDuringCreationUsingAnonymousClass;
 
 public class MapExamplesTest {
 
@@ -65,5 +62,13 @@ public class MapExamplesTest {
 
         MapExamples.removeElementForFrequencyMoreThan(map, 2);
         assertThat(map.size(), is(0));
+    }
+
+    @Test
+    public void mapContainsValuesAfterInitialization() {
+        String test1 = "test 1", test2 = "test 2";
+        Map<Integer, String> map = initializeMapDuringCreationUsingAnonymousClass(test1, test2);
+
+        assertThat(map.values(), hasItems(test1, test2));
     }
 }

@@ -18,27 +18,35 @@ public class MapExamples {
     }
 
     static <V, E> void removeElementForFrequencyMoreThan(Map<V, E> map, int frequency) {
-        Map<E, Integer> mapOfFrequencies = calculateElementFrequenceInMap(map);
+        Map<E, Integer> mapOfFrequencies = calculateElementFrequencyInMap(map);
 
         mapOfFrequencies
                 .entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() > frequency)
                 .forEach(
-                        entry -> {
-                            removeDuplicateValues(map, entry.getKey());
-                        });
+                        entry -> removeDuplicateValues(map, entry.getKey()));
     }
 
     private static <V, E> void removeDuplicateValues(Map<V, E> map, E value) {
         map.entrySet().removeIf(entry -> value.equals(entry.getValue()));
     }
 
-    private static <V, E> Map<E, Integer> calculateElementFrequenceInMap(Map<V, E> map) {
+    private static <V, E> Map<E, Integer> calculateElementFrequencyInMap(Map<V, E> map) {
         Map<E, Integer> mapOfFrequencies = new HashMap<>();
         for (E value : new HashSet<>(map.values())) {
             mapOfFrequencies.put(value, Collections.frequency(map.values(), value));
         }
         return mapOfFrequencies;
+    }
+
+    static Map<Integer, String> initializeMapDuringCreationUsingAnonymousClass(String... values) {
+        return new HashMap<Integer, String>() {{
+            int i = 0;
+
+            for(String value : values) {
+                put(i++, value);
+            }
+        }};
     }
 }
