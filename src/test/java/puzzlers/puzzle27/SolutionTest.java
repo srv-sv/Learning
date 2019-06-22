@@ -1,24 +1,12 @@
 package puzzlers.puzzle27;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import utils.StreamsReplacer;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
-public class SolutionTest {
-
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
+public class SolutionTest extends StreamsReplacer {
 
     @Test
     public void methodPrints32ForInt() {
@@ -36,10 +24,5 @@ public class SolutionTest {
     public void methodDoesNotReturnAnythingForEmptyArgs() {
         Solution.main(new String[]{});
         assertThat(outContent.toString(), is(""));
-    }
-
-    @After
-    public void restoreStreams() {
-        System.setOut(originalOut);
     }
 }
